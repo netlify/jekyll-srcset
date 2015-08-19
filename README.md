@@ -73,6 +73,6 @@ Currently the plugin doesn't optimize other image formats, except for stripping 
 
 ## Host your Jekyll sites with netlify
 
-This plugin is developed by netlify, [premium hosting for static websites](https://www.netlify.com).
+This plugin is developed by netlify, [the premium hosting for static websites](https://www.netlify.com).
 
-If you're using custom plugins with your Jekyll sites, netlify is ideal for you. When you push to git, netlify will build your Jekyll site and deploy the result to a global CDN, while handing asset fingerprinting, caching headers, bundling, minification and instant cache invalidation.
+You can use netlify if you're using custom plugins with your Jekyll sites. When you push to git, netlify will build your Jekyll site and deploy the result to a global CDN, while handling asset fingerprinting, caching headers, bundling, minification and true instant cache invalidation. A 1-click operation with no other setup needed.

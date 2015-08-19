@@ -70,3 +70,9 @@ Currently the plugin doesn't optimize other image formats, except for stripping 
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Host your Jekyll sites with netlify
+
+This plugin is developed by netlify, [premium hosting for static websites](https://www.netlify.com).
+
+If you're using custom plugins with your Jekyll sites, netlify is ideal for you. When you push to git, netlify will build your Jekyll site and deploy the result to a global CDN, while handing asset fingerprinting, caching headers, bundling, minification and instant cache invalidation.

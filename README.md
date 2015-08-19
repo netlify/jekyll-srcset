@@ -4,7 +4,7 @@ This Jekyll plugin makes it very easy to send larger images to devices with high
 
 The plugin adds an `image_tag` Liquid tag that can be used like this:
 
-```liquid
+```html
 {% image_tag src="/image.png" width="100" %}
 ```
 
@@ -45,11 +45,17 @@ Use it like this in any Liquid template:
 {% image_tag src="/image.png" width="100" %}
 ```
 
-You must specify either a `width` or a `height`, but never both. The width or height will be used to determine the smallest version of the image to use. Based on this minimum size, the plugin will generate up to 3 versions of the image, one that matches the dimension specified, one that's twice the size and one that's 3 times the size.
+You must specify either a `width` or a `height`, but never both. The width or height will be used to determine the smallest version of the image to use (for 1x pixel density devices). Based on this minimum size, the plugin will generate up to 3 versions of the image, one that matches the dimension specified, one that's twice the size and one that's 3 times the size. The plugin never upscales an image.
 
 The plugin sets these as a srcset attribute on the final image tag, and modern browsers will then use this information to determine which version of the image to load based on the pixel density of the device (and in the future, potentially based on bandwidth or user settings).
 
 This makes it a really straight forward way to serve the right size of image in all modern browsers and in works fine in older browsers without any polyfill (there's not a lot of high pixel density devices out there that runs old browsers, so simply serving the smallest version to the ones that don't understand srcset is fine).
+
+To use variables for the image or the dimensions, simply leave out the quotes:
+
+```html
+{% image_tag src=page.cover_image height=page.cover_image_height %}
+```
 
 ## Optipng
 

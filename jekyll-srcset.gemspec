@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   \{% image_tag src="/image.png" width="100" %\}
 }
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/netlify/jekyll-srcset"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

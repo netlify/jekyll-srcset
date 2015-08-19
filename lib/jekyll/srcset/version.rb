@@ -1,0 +1,5 @@
+module Jekyll
+  module Srcset
+    VERSION = "0.0.1"
+  end
+end

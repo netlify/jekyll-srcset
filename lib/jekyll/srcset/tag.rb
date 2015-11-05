@@ -1,4 +1,5 @@
 require "RMagick"
+require "digest/sha1"
 
 module Jekyll
   class SrcsetTag < Liquid::Tag
@@ -44,7 +45,31 @@ module Jekyll
       options
     end
 
+    def config(site)
+      site.config['srcset'] || {}
+    end
+
+    def optimize?(site)
+      config(site)['optipng']
+    end
+
+    def cache_dir(site)
+      config(site)['cache']
+    end
+
     def generate_image(site, src, attrs)
+      cache = cache_dir(site)
+      sha = cache && Digest::SHA1.hexdigest(attrs.sort.inspect + File.read(File.join(site.source, src)) + (optimize?(site) ? "optimize" : ""))
+      if sha
+        if File.exists?(File.join(cache, sha))
+          img_attrs = JSON.parse(File.read(File.join(cache,sha,"json")))
+          filename = img_attrs["src"].sub(/^\//, '')
+          dest = File.join(site.dest, filename)
+          FileUtils.cp(File.join(cache,sha,"img"), dest)
+          return img_attrs
+        end
+      end
+
       img = Image.read(File.join(site.source, src)).first
       img_attrs = {}
 
@@ -56,22 +81,33 @@ module Jekyll
         scale = attrs["factor"] || 1
       end
 
-      img.scale!(scale) if scale <= 1
       img_attrs["height"] = attrs["height"] if attrs["height"]
       img_attrs["width"]  = attrs["width"]  if attrs["width"]
-
       img_attrs["src"] = src.sub(/(\.\w+)$/, "-#{img.columns}x#{img.rows}" + '\1')
+
       filename = img_attrs["src"].sub(/^\//, '')
       dest = File.join(site.dest, filename)
       FileUtils.mkdir_p(File.dirname(dest))
+
       unless File.exist?(dest)
+        puts "Resizing image #{dest}"
+        img.scale!(scale) if scale <= 1
         img.strip!
         img.write(dest)
-        if dest.match(/\.png$/) && self.class.optipng?
+        if dest.match(/\.png$/) && optimize?(site) && self.class.optipng?
           `optipng #{dest}`
         end
       end
       site.config['keep_files'] << filename unless site.config['keep_files'].include?(filename)
+
+      if sha
+        FileUtils.mkdir_p(File.join(cache, sha))
+        FileUtils.cp(dest, File.join(cache, sha, "img"))
+        File.open(File.join(cache, sha, "json"), "w") do |f|
+          f.write(JSON.generate(img_attrs))
+        end
+      end
+
       img_attrs
     end
   end

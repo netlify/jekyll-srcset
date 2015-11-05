@@ -59,9 +59,27 @@ To use variables for the image or the dimensions, simply leave out the quotes:
 
 ## Optipng
 
-If you have `optipng` installed and in your PATH, the plugin wil automatically run it on all generated png images.
+If you have `optipng` installed and in your PATH, you can tell the plugin to run it on all generated png images.
+
+Just add:
+
+```
+srcset:
+  optipng: true
+```
+
+To your \_config.yml
 
 Currently the plugin doesn't optimize other image formats, except for stripping color palettes.
+
+## Caching images
+
+Optimizing and resizing can take a while for some images. You can specify a cache folder in your Jekyll config to let jekyll-srcset cache images between runs.
+
+```
+srcset:
+  cache: "/tmp/images"
+```
 
 ## Contributing
 

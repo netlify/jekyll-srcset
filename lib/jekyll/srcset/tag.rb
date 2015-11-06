@@ -67,6 +67,9 @@ module Jekyll
           dest = File.join(site.dest, filename)
           FileUtils.mkdir_p(File.dirname(dest))
           FileUtils.cp(File.join(cache,sha,"img"), dest)
+
+          site.config['keep_files'] << filename unless site.config['keep_files'].include?(filename)
+          
           return img_attrs
         end
       end

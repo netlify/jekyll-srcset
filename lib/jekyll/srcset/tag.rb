@@ -65,6 +65,7 @@ module Jekyll
           img_attrs = JSON.parse(File.read(File.join(cache,sha,"json")))
           filename = img_attrs["src"].sub(/^\//, '')
           dest = File.join(site.dest, filename)
+          FileUtils.mkdir_p(File.dirname(dest))
           FileUtils.cp(File.join(cache,sha,"img"), dest)
           return img_attrs
         end
@@ -90,7 +91,6 @@ module Jekyll
       FileUtils.mkdir_p(File.dirname(dest))
 
       unless File.exist?(dest)
-        puts "Resizing image #{dest}"
         img.scale!(scale) if scale <= 1
         img.strip!
         img.write(dest)

@@ -69,7 +69,7 @@ module Jekyll
           FileUtils.cp(File.join(cache,sha,"img"), dest)
 
           site.config['keep_files'] << filename unless site.config['keep_files'].include?(filename)
-          
+
           return img_attrs
         end
       end
@@ -102,6 +102,8 @@ module Jekyll
         end
       end
       site.config['keep_files'] << filename unless site.config['keep_files'].include?(filename)
+      # Keep files around for incremental builds in Jekyll 3
+      site.regenerator.add(filename) if site.respond_to?(:regenerator)
 
       if sha
         FileUtils.mkdir_p(File.join(cache, sha))

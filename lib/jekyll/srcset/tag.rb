@@ -96,11 +96,13 @@ module Jekyll
       unless File.exist?(dest)
         img.scale!(scale) if scale <= 1
         img.strip!
-        if dest.match(/\.jpg$/){
+        
+        if dest.match(/\.jpg$/)
           img.write(dest){ self.quality = 80 }
-        } else {
+        else
           img.write(dest)
-         }
+        end
+
         if dest.match(/\.png$/) && optimize?(site) && self.class.optipng?
           `optipng #{dest}`
         end

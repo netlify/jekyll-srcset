@@ -56,6 +56,15 @@ module Jekyll
     def cache_dir(site)
       config(site)['cache']
     end
+    
+    def jpeg_quality(site)
+      if config(site).key? 'jpeg_quality'
+        config(site)['jpeg_quality']
+      else
+        80 #DEFAULT QUALITY
+      end
+    end
+
 
     def generate_image(site, src, attrs)
       cache = cache_dir(site)
@@ -97,8 +106,9 @@ module Jekyll
         img.scale!(scale) if scale <= 1
         img.strip!
         
-        if dest.match(/\.jpg$/)
-          img.write(dest){ self.quality = 80 }
+        if dest.match(/\.jpg$/) or dest.match(/\.jpeg$/)
+          quality = jpeg_quality(site)
+          img.write(dest) do self.quality = quality end
         else
           img.write(dest)
         end

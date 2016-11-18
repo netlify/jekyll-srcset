@@ -81,6 +81,14 @@ srcset:
   cache: "/tmp/images"
 ```
 
+## JPEG quality
+If you need to set jpeg quality you can use this option (default is 80).
+
+```
+srcset:
+  jpeg_quality: 60
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/jekyll-srcset/fork )

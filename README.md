@@ -37,6 +37,37 @@ gems:
   - jekyll-srcset
 ```
 
+## Troubleshooting
+
+Jekyll-srcset uses `ImageMagick` and the `rmagick` Ruby gem.
+
+If you're running into an error either running the `bundle` command, or running `gem install jekyll-srcset`, try the following:
+
+**If you're on a Mac:**
+
+First try running these commands (You'll need homebrew installed):
+
+```
+brew install imagemagick
+gem install rmagick
+```
+
+If that didn't work, try these commands:
+
+```
+brew unlink imagemagick
+brew install imagemagick@6 && brew link imagemagick@6 --force
+```
+
+**If you're on Linux:**
+
+Run these commands
+
+```
+sudo apt-get install libmagickcore-dev libmagickwand-dev
+gem install rmagick
+```
+
 ## Usage
 
 Use it like this in any Liquid template:

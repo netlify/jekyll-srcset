@@ -1,0 +1,28 @@
+inherit_gem:
+  jekyll: .rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.1
+  Exclude:
+    - vendor/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - lib/jekyll/srcset/tag.rb
+
+Metrics/LineLength:
+  Exclude:
+    - lib/jekyll/srcset/tag.rb
+    - jekyll-srcset.gemspec
+
+Metrics/MethodLength:
+  Exclude:
+    - lib/jekyll/srcset/tag.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - lib/jekyll/srcset/tag.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - lib/jekyll/srcset/tag.rb

@@ -33,7 +33,7 @@ Or install it yourself as:
 Then add the gem to your Jekyll `_config.yml`:
 
 ```yml
-gems:
+plugins:
   - jekyll-srcset
 ```
 

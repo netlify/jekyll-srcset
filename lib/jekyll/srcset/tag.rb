@@ -1,4 +1,4 @@
-require "RMagick"
+require "rmagick"
 require "digest/sha1"
 
 module Jekyll
